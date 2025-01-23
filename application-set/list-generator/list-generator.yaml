@@ -15,6 +15,10 @@ spec:
             repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git           #service
             targetRevision: HEAD
             path: application-set/list-data/app2
+          - name: list-application-set-app2
+            repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git           #service
+            targetRevision: HEAD
+            path: application-set/list-data/app3
   template:
     metadata:
       name: '{{name}}'
