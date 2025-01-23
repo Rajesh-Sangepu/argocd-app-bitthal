@@ -26,7 +26,7 @@ spec:
       source:
         repoURL: "https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git"
         targetRevision: "HEAD"
-        path: '{{path}}'
+        path: "application-set/matrix-data/*"
       destination:
         server: "https://kubernetes.default.svc"
         namespace: '{{namespace}}'
