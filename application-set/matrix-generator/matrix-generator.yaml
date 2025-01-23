@@ -29,7 +29,7 @@ spec:
         path: "application-set/matrix-generator"
       destination:
         server: "https://kubernetes.default.svc"
-        namespace: '{{name}}'
+        namespace: '{{namespace}}'
       syncPolicy:
         automated:
           prune: true
