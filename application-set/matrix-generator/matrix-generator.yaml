@@ -11,7 +11,7 @@ spec:
             repoURL: "https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git"
             revision: "HEAD"
             directories:
-              - path: "application-set/git-data/*"
+              - path: "application-set/matrix-data/*"
           - list:
               elements:
                 - cluster: https://kubernetes.default.svc
