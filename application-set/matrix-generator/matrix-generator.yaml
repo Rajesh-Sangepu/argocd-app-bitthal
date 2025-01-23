@@ -26,9 +26,9 @@ spec:
       source:
         repoURL: "https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git"
         targetRevision: "HEAD"
-        path: "{{path}}"
+        path: "application-set/git-generator"
       destination:
-        server: "https://target-vcluster.gartner.opsmx.net:443"
+        server: "https://kubernetes.default.svc"
         namespace: '{{name}}'
       syncPolicy:
         automated:
