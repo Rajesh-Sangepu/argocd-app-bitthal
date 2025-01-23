@@ -24,12 +24,12 @@ spec:
     spec:
       project: default
       source:
-        repoURL: "https://github.com/OpsMx/argo-customer-demo.git"
+        repoURL: "https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git"
         targetRevision: "HEAD"
-        path: "{{valuesPath}}"
+        path: "{{path}}"
       destination:
         server: "https://target-vcluster.gartner.opsmx.net:443"
-        namespace: '{{appName}}'
+        namespace: '{{name}}'
       syncPolicy:
         automated:
           prune: true
