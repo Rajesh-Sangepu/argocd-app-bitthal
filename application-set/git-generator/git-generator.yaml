@@ -7,22 +7,22 @@ metadata:
 spec:
   generators:
     - git:                 
-        repoURL: "https://github.com/OpsMx/argo-customer-demo.git"
+        repoURL: "https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git"
         revision: "HEAD"
         directories:
-          - path: "datas/application-set-date/git-data/*"
+          - path: "application-set/git-data/*"
   template:
     metadata:
       name: '{{path.basename}}'
     spec:
       project: default
       source:
-        repoURL: "https://github.com/OpsMx/argo-customer-demo.git"
+        repoURL: "https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git"
         targetRevision: "HEAD"
         path: '{{path}}'
       destination:
-        server: "https://target-vcluster.gartner.opsmx.net:443"
-        namespace: 'argocd-kt'
+        server: "https://kubernetes.default.svc"
+        namespace: 'argocd-git-generator'
       syncPolicy:
         automated:
           prune: true
