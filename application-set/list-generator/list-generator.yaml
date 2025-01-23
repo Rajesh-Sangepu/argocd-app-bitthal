@@ -8,13 +8,13 @@ spec:
     - list:
         elements:
           - name: list-application-set-app1
-            repoURL: https://github.com/OpsMx/argo-customer-demo.git          #pod
+            repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git          #pod
             targetRevision: HEAD
-            path: datas/application-set-date/list-data/app1
+            path: application-set/list-data/app1
           - name: list-application-set-app2
-            repoURL: https://github.com/OpsMx/argo-customer-demo.git           #service
+            repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git           #service
             targetRevision: HEAD
-            path: datas/application-set-date/list-data/app2
+            path: application-set/list-data/app2
   template:
     metadata:
       name: '{{name}}'
@@ -25,7 +25,7 @@ spec:
         targetRevision: '{{targetRevision}}'
         path: '{{path}}'
       destination:
-        server: https://target-vcluster.gartner.opsmx.net:443
+        server: https://kubernetes.default.svc
         namespace: '{{name}}-namespace'
       syncPolicy:
         automated:
