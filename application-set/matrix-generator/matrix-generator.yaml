@@ -7,20 +7,20 @@ spec:
   generators:
     - matrix:
         generators:
+          - git:                 
+            repoURL: "https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git"
+            revision: "HEAD"
+            directories:
+              - path: "application-set/git-data/*"
           - list:
               elements:
-                - appName: two-helm1
-                - appName: two-helm2
-          - list:
-              elements:
-                - name: helm-chart-1
-                  valuesPath: "datas/application-set-date/matrix-data/matrix1/two-helm/helm-chart-1"
-                - name: helm-chart-2
-                  valuesPath: "datas/application-set-date/matrix-data/matrix2/two-helm/helm-chart-2"
-                
+                - cluster: https://cluster-1.example.com
+                  namespace: app-one-namespace
+                - cluster: https://cluster-2.example.com
+                  namespace: app-two-namespace
   template:
     metadata:
-      name: '{{appName}}-{{name}}'
+      name: '{{name}}-{{namespace}}'
     spec:
       project: default
       source:
