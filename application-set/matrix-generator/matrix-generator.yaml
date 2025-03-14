@@ -12,7 +12,7 @@ spec:
                 - app: backend
           - git:
               repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git
-              targetRevision: HEAD
+              revision: HEAD
               directories:
                 - path: application-set/matrix-data/matrix-appset1
                 - path: application-set/matrix-data/matrix-appset2
