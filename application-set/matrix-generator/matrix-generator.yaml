@@ -12,7 +12,7 @@ spec:
                 - app: backend
           - git:
               repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git
-              revision: main
+              targetRevision: HEAD
               directories:
                 - path: application-set/matrix-data/matrix-appset1
                 - path: application-set/matrix-data/matrix-appset2
@@ -23,7 +23,7 @@ spec:
       project: default
       source:
         repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git
-        targetRevision: main
+        targetRevision: HEAD
         path: "{{path}}"
       destination:
         server: https://kubernetes.default.svc
