@@ -8,27 +8,33 @@ spec:
         generators:
           - list:
               elements:
-                - app: frontend
-                - app: backend
-          - git:
-              repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git
-              revision: HEAD  # ✅ Correct field name
-              directories:
-                - path: application-set/matrix-data/matrix-appset1
-                - path: application-set/matrix-data/matrix-appset2
+                - appName: matrix-app0
+                - appName: matrix-app1
+          - list:
+        elements:
+          - name: matrix-application-set-app1
+            repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git          #pod
+            targetRevision: HEAD
+            path: application-set/matrix-data/matrix-appset1
+          - name: matrix-application-set-app2
+            repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git           #service
+            targetRevision: HEAD
+            path: application-set/matrix-data/matrix-appset2
   template:
     metadata:
-      name: "{{app}}-{{path.basename}}"  # Generates names like "frontend-matrix-appset1"
+      name: '{{appName}}-{{name}}'
     spec:
       project: default
       source:
-        repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git
-        targetRevision: HEAD
-        path: "{{path}}"  # Uses directory from Git generator
+        repoURL: "https://github.com/OpsMx/argo-customer-demo.git"
+        targetRevision: "HEAD"
+        path: "{{path}}"
       destination:
-        server: https://kubernetes.default.svc
-        namespace: "{{app}}-namespace"
+        server: "https://target-vcluster.gartner.opsmx.net:443"
+        namespace: '{{appName}}'
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
