@@ -8,17 +8,18 @@ spec:
         generators:
           - list:
               elements:
-                - app: frontend
-                - app: backend
+                - cluster: dev
+                  url: https://dev-vcluster.opencd.opsmx.org:443
+                - cluster: staging
+                  url: https://kubernetes.default.svc
           - git:
               repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git
               revision: HEAD
               directories:
-                - path: application-set/matrix-data/matrix-appset1
-                - path: application-set/matrix-data/matrix-appset2
+                - path: application-set/matrix-data/*
   template:
     metadata:
-      name: "{{app}}-{{path.basename}}"
+      name: "{{cluster}}-{{path.basename}}"
     spec:
       project: default
       source:
@@ -26,8 +27,8 @@ spec:
         targetRevision: HEAD
         path: "{{path}}"
       destination:
-        server: https://kubernetes.default.svc
-        namespace: "{{app}}-namespace"
+        server: "{{url}}"
+        namespace: my-apps
       syncPolicy:
         automated:
           prune: true
