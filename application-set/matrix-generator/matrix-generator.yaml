@@ -1,38 +1,34 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: applicationset-matrix
-  namespace: argocd
+  name: matrix-generator-list-git
 spec:
   generators:
     - matrix:
         generators:
-          - git:                 
-            repoURL: "https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git"
-            revision: "HEAD"
-            directories:
-              - path: "application-set/matrix-data/*"
           - list:
               elements:
-                - cluster: https://kubernetes.default.svc
-                  namespace: app-one-namespace
-                - cluster: https://dev-vcluster.opencd.opsmx.org:443
-                  namespace: app-two-namespace
+                - app: frontend
+                - app: backend
+          - git:
+              repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git
+              revision: main
+              directories:
+                - path: application-set/matrix-data/matrix-appset1
+                - path: application-set/matrix-data/matrix-appset2
   template:
     metadata:
-      name: '{{namespace}}'
+      name: "{{app}}-{{path.basename}}"
     spec:
       project: default
       source:
-        repoURL: "https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git"
-        targetRevision: "HEAD"
-        path: "application-set/matrix-data/*"
+        repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git
+        targetRevision: main
+        path: "{{path}}"
       destination:
-        server: "https://kubernetes.default.svc"
-        namespace: '{{namespace}}'
+        server: https://kubernetes.default.svc
+        namespace: "{{app}}-namespace"
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
