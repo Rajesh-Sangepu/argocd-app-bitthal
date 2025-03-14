@@ -16,7 +16,7 @@ spec:
               elements:
                 - cluster: https://kubernetes.default.svc
                   namespace: app-one-namespace
-                - cluster: https://kubernetes.default.svc
+                - cluster: https://dev-vcluster.opencd.opsmx.org:443
                   namespace: app-two-namespace
   template:
     metadata:
