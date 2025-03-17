@@ -1,21 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
-  labels:
-    app: nginx
+  name: app1
+  namespace: two-helm1  # This will be overridden dynamically by ArgoCD
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: nginx
+      app: app1
   template:
     metadata:
       labels:
-        app: nginx
+        app: app1
     spec:
       containers:
-        - name: nginx
+        - name: app1-container
           image: nginx:latest
           ports:
             - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app1-service
+  namespace: two-helm1  # This will be overridden dynamically
+spec:
+  selector:
+    app: app1
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
