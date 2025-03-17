@@ -1,40 +1,38 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: matrix-generator-list-git
+  name: matrix-git-list-cluster-example
 spec:
   generators:
     - matrix:
         generators:
+          - git:
+              repoURL: https://github.com/example-org/example-repo.git
+              revision: main
+              directories:
+                - path: apps/app1
+                - path: apps/app2
           - list:
               elements:
-                - appName: matrix-app0
-                - appName: matrix-app1
-          - list:
-        elements:
-          - name: matrix-application-set-app1
-            repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git          #pod
-            targetRevision: HEAD
-            path: application-set/matrix-data/matrix-appset1
-          - name: matrix-application-set-app2
-            repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git           #service
-            targetRevision: HEAD
-            path: application-set/matrix-data/matrix-appset2
+                - env: dev
+                  namespace: dev-apps
+                  server: https://dev-cluster.example.com
+                - env: prod
+                  namespace: prod-apps
+                  server: https://prod-cluster.example.com
   template:
     metadata:
-      name: '{{appName}}-{{name}}'
+      name: '{{path | basename}}-{{env}}'
     spec:
       project: default
       source:
-        repoURL: "https://github.com/OpsMx/argo-customer-demo.git"
-        targetRevision: "HEAD"
-        path: "{{path}}"
+        repoURL: https://github.com/example-org/example-repo.git
+        targetRevision: main
+        path: '{{path}}'
       destination:
-        server: "https://target-vcluster.gartner.opsmx.net:443"
-        namespace: '{{appName}}'
+        server: '{{server}}'
+        namespace: '{{namespace}}'
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
