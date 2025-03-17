@@ -6,22 +6,23 @@ spec:
   generators:
     - matrix:
         generators:
-          - git:
-              repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git
-              revision: main
-              directories:
-                - path: application-set/matrix-data/*
-          - list:
+         - list:
               elements:
-                - env: dev-vcluster
-                  namespace: raj-dev-apps
-                  server: https://dev-vcluster.opencd.opsmx.org:443
-                - env: in-cluster
-                  namespace: in-cluster-apps
-                  server: https://kubernetes.default.svc
+                - appName: app1
+                - appName: app2
+        - list:
+            elements:
+              - name: list-application-set-app1
+                repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git          #pod
+                targetRevision: HEAD
+                path: application-set/list-data/app1
+              - name: list-application-set-app2
+                repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git           #service
+                targetRevision: HEAD
+                path: application-set/list-data/app2
   template:
     metadata:
-      name: '{{path | basename}}-{{env}}'
+      name: '{{appName}}-{{name}}'
     spec:
       project: default
       source:
@@ -29,7 +30,7 @@ spec:
         targetRevision: main
         path: '{{path}}'
       destination:
-        server: '{{server}}'
+        server: "https://kubernetes.default.svc"
         namespace: '{{namespace}}'
       syncPolicy:
         automated:
