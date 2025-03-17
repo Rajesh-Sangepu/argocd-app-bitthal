@@ -10,19 +10,14 @@ spec:
               elements:
                 - appName: app1
                 - appName: app2
-         - list:
-            elements:
-              - name: matrix-application-set-app1
-                repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git          #pod
-                targetRevision: HEAD
-                path: application-set/matrix-data/matrix-appset1
-              - name: matrix-application-set-app2
-                repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git           #service
-                targetRevision: HEAD
-                path: application-set/matrix-data/matrix-appset2
+          - git:                 
+              repoURL: "https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git"
+              revision: "HEAD"
+              directories:
+                - path: "application-set/git-data/*"
   template:
     metadata:
-      name: '{{appName}}-{{name}}'
+      name: '{{appName}}-{{path.basename}}'
     spec:
       project: default
       source:
