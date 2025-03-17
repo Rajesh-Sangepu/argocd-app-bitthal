@@ -10,7 +10,7 @@ spec:
               elements:
                 - appName: app1
                 - appName: app2
-        - list:
+         - list:
             elements:
               - name: matrix-application-set-app1
                 repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git          #pod
