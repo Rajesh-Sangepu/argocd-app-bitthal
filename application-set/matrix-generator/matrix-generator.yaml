@@ -16,9 +16,9 @@ spec:
                 - env: dev-vcluster
                   namespace: raj-dev-apps
                   server: https://dev-vcluster.opencd.opsmx.org:443
-                - env: jpmc-test-vcluster
-                  namespace: jpmc-apps
-                  server: https://jpmc-test-vcluster.opencd.opsmx.org:443
+                - env: in-cluster
+                  namespace: in-cluster-apps
+                  server: https://kubernetes.default.svc
   template:
     metadata:
       name: '{{path | basename}}-{{env}}'
