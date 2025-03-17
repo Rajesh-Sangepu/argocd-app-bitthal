@@ -12,14 +12,14 @@ spec:
                 - appName: app2
         - list:
             elements:
-              - name: list-application-set-app1
+              - name: matrix-application-set-app1
                 repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git          #pod
                 targetRevision: HEAD
-                path: application-set/list-data/app1
-              - name: list-application-set-app2
+                path: application-set/matrix-data/matrix-appset1
+              - name: matrix-application-set-app2
                 repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git           #service
                 targetRevision: HEAD
-                path: application-set/list-data/app2
+                path: application-set/matrix-data/matrix-appset2
   template:
     metadata:
       name: '{{appName}}-{{name}}'
