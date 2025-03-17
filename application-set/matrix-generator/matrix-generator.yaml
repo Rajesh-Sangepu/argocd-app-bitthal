@@ -6,15 +6,15 @@ spec:
   generators:
     - matrix:
         generators:
-          - list:
-              elements:
-                - appName: app1
-                - appName: app2
           - git:                 
               repoURL: "https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git"
               revision: HEAD
               directories:
                 - path: "application-set/git-data/*"
+          - list:
+              elements:
+                - appName: app1
+                - appName: app2
   template:
     metadata:
       name: '{{appName}}-{{path.basename}}'
