@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app2
-  namespace: two-helm2  # This will be overridden dynamically
+  namespace: raj-app2  # This will be overridden dynamically
 spec:
   replicas: 1
   selector:
