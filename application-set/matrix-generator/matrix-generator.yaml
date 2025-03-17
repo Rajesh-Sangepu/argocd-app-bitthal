@@ -12,7 +12,7 @@ spec:
                 - appName: app2
           - git:                 
               repoURL: "https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git"
-              revision: "HEAD"
+              revision: HEAD
               directories:
                 - path: "application-set/git-data/*"
   template:
