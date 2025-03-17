@@ -1,32 +1,37 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: raj-matrix-generator
+  name: raj-matrix-applicationset
+  namespace: argocd
 spec:
   generators:
     - matrix:
         generators:
-          - git:                 
-              repoURL: "https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git"
-              revision: HEAD
-              directories:
-                - path: "application-set/git-data/*"
           - list:
               elements:
+                - appName: app0
                 - appName: app1
-                - appName: app2
+          - list:
+              elements:
+                - name: app0
+                  path: "application-set/matrix-data/matrix-appset1"
+                - name: app1
+                  path: "application-set/matrix-data/matrix-appset2"
   template:
     metadata:
-      name: '{{appName}}-{{path.basename}}'
+      name: '{{appName}}-{{name}}'
     spec:
       project: default
       source:
-        repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git
-        targetRevision: HEAD
-        path: '{{path}}'
+        repoURL: "https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git"
+        targetRevision: "HEAD"
+        path: "{{path}}"  
       destination:
         server: "https://kubernetes.default.svc"
+        namespace: '{{appName}}'
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
