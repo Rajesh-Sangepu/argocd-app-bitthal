@@ -9,15 +9,14 @@ spec:
         generators:
           - list:
               elements:
-                - appName: two-helm1
-                - appName: two-helm2
+                - appName: app0
+                - appName: app1
           - list:
               elements:
-                - name: helm-chart-1
-                  valuesPath: "matrix-data/matrix1/two-helm/helm-chart-1"
-                - name: helm-chart-2
-                  valuesPath: "matrix-data/matrix2/two-helm/helm-chart-2"
-                
+                - name: app0
+                  path: "matrix-data/appset1"
+                - name: app1
+                  path: "matrix-data/appset2"
   template:
     metadata:
       name: '{{appName}}-{{name}}'
@@ -26,7 +25,7 @@ spec:
       source:
         repoURL: "https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git"
         targetRevision: "HEAD"
-        path: "{{valuesPath}}"
+        path: "{{path}}"  
       destination:
         server: "https://kubernetes.default.svc"
         namespace: '{{appName}}'
