@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: applicationset-matrix
+  name: raj-matrix-applicationset
   namespace: argocd
 spec:
   generators:
@@ -14,9 +14,9 @@ spec:
           - list:
               elements:
                 - name: helm-chart-1
-                  valuesPath: "datas/application-set-date/matrix-data/matrix1/two-helm/helm-chart-1"
+                  valuesPath: "matrix-data/matrix1/two-helm/helm-chart-1"
                 - name: helm-chart-2
-                  valuesPath: "datas/application-set-date/matrix-data/matrix2/two-helm/helm-chart-2"
+                  valuesPath: "matrix-data/matrix2/two-helm/helm-chart-2"
                 
   template:
     metadata:
@@ -24,11 +24,11 @@ spec:
     spec:
       project: default
       source:
-        repoURL: "https://github.com/OpsMx/argo-customer-demo.git"
+        repoURL: "https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git"
         targetRevision: "HEAD"
         path: "{{valuesPath}}"
       destination:
-        server: "https://target-vcluster.gartner.opsmx.net:443"
+        server: "https://kubernetes.default.svc"
         namespace: '{{appName}}'
       syncPolicy:
         automated:
