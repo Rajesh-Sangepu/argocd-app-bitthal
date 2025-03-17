@@ -25,7 +25,7 @@ spec:
       source:
         repoURL: "https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git"
         targetRevision: "HEAD"
-        path: "charts/helm-app"
+        path: "application-set/matrix-generator-using-helm"
         helm:
           valueFiles:
             - "{{valuesPath}}"
