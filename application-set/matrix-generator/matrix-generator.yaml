@@ -1,32 +1,31 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: matrix-git-list-cluster-example
+  name: raj-matrix-git-list-cluster
 spec:
   generators:
     - matrix:
         generators:
           - git:
-              repoURL: https://github.com/example-org/example-repo.git
+              repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git
               revision: main
               directories:
-                - path: apps/app1
-                - path: apps/app2
+                - path: application-set/matrix-data/*
           - list:
               elements:
-                - env: dev
-                  namespace: dev-apps
-                  server: https://dev-cluster.example.com
-                - env: prod
-                  namespace: prod-apps
-                  server: https://prod-cluster.example.com
+                - env: dev-vcluster
+                  namespace: raj-dev-apps
+                  server: https://dev-vcluster.opencd.opsmx.org:443
+                - env: jpmc-test-vcluster
+                  namespace: jpmc-apps
+                  server: https://jpmc-test-vcluster.opencd.opsmx.org:443
   template:
     metadata:
       name: '{{path | basename}}-{{env}}'
     spec:
       project: default
       source:
-        repoURL: https://github.com/example-org/example-repo.git
+        repoURL: https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git
         targetRevision: main
         path: '{{path}}'
       destination:
