@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app1
-  namespace: rajapp1  # This will be overridden dynamically by ArgoCD
+  namespace: app1  # This will be overridden dynamically by ArgoCD
 spec:
   replicas: 1
   selector:
