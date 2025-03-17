@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: raj-matrix-git-list-cluster
+  name: raj-matrix-generator
 spec:
   generators:
     - matrix:
