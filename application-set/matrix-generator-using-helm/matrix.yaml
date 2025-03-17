@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: raj-matrix-applicationset
+  name: raj-matrix-helm
   namespace: argocd
 spec:
   generators:
@@ -13,10 +13,10 @@ spec:
                 - appName: two-helm2
           - list:
               elements:
-                - name: app1
-                  path: "matrix-data1/matrix1/two-helm/app1"
-                - name: app2
-                  path: "matrix-data1/matrix2/two-helm/app2"
+                - name: helm-app1
+                  valuesPath: "helm-values/matrix1/two-helm/helm-app1/values.yaml"
+                - name: helm-app2
+                  valuesPath: "helm-values/matrix2/two-helm/helm-app2/values.yaml"
   template:
     metadata:
       name: '{{appName}}-{{name}}'
@@ -25,7 +25,10 @@ spec:
       source:
         repoURL: "https://github.com/Rajesh-Sangepu/argocd-app-bitthal.git"
         targetRevision: "HEAD"
-        path: "{{path}}"  
+        path: "charts/helm-app"
+        helm:
+          valueFiles:
+            - "{{valuesPath}}"
       destination:
         server: "https://kubernetes.default.svc"
         namespace: '{{appName}}'
